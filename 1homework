@@ -1,0 +1,14 @@
+class Pet:
+    def __init__(self, name, age, gender, kind):
+        self.name = name
+        self.age = age
+        self.gender = gender
+        self.kind = kind
+    def __wantfood__(self, foodname):
+        print(f"meow I want eat {foodname} ")
+
+        Tom = Pet (Tom,  "4", "male","black cat" )
+        print("Name: ", Tom.name, "\nGender: ", Tom.gender, "\nAge: ", Tom.age, "\nKind: ", Tom.kind)
+        Tom.__wantfood__("Fish")
+        print("\n")
+       
