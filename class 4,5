@@ -2,6 +2,8 @@
 import requests
 response = requests.get("https://fake-json-api.mock.beeceptor.com")
 try:
+   import requests
+   response = requests.get("https://fake-json-api.mock.beeceptor.com")
    response.status_code == 200
     
 except:
