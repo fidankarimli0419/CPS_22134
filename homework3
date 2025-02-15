@@ -1,0 +1,20 @@
+class Yoriichi:
+     def __init__(self, volume:float, number_breaths :float, breathing:str ):
+        self.volume = volume
+        self.number_breaths =  number_breaths
+        self.breathing = breathing
+
+class Tanjiro(Yoriichi):
+    def __init__(self,Yoriichi=Yoriichi ):
+        self.Yoriichi = Yoriichi
+
+class Zenitsu:
+    def __init__(self , uron, number_breaths ):
+        self.uron = uron
+        self.number_breaths = number_breaths
+Zenitsu= Zenitsu( 1500,7 )
+Tanjiro = Tanjiro( 300000,13,"sun breathing")
+
+
+print(f"Zenitsu:\n\turon: {Zenitsu.uron}\n\number_breaths: {Zenitsu.number_breaths}")
+print(f"Tanjiro:\n\tvolume: {Tanjiro.volume}\n\number_breaths: {Tanjiro.number_breaths}")
