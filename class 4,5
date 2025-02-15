@@ -1,0 +1,10 @@
+
+import requests
+response = requests.get("https://fake-json-api.mock.beeceptor.com")
+try:
+   response.status_code == 200
+    
+except:
+    print("error! send correct request")
+else:
+     print("person: \n", response.json())
