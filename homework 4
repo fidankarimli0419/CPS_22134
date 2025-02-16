@@ -1,0 +1,9 @@
+import requests
+
+url = "https://fake-json-api.mock.beeceptor.com/"
+response = requests.get(url)
+if response.status_code == 200:
+    print("Ответ от API:")
+    print(response.json())
+else:
+    print(f"Ошибка: {response.status_code}")
