@@ -1,0 +1,23 @@
+import logging
+
+logging.basicConfig(
+    level = logging.DEBUG,
+    format = "%(asctime)s - %(levelname)s - %(message)s"
+)
+
+def process_list(ls):
+    logging.info("начало обрабоки списка")
+    for h, item in enumerate(ls):
+        try:
+            result = item * 5
+            logging.debug(f"элемент {h}: {item} умножил на 5  Результат: {result}")
+        except Exception as i:
+            logging.error(f"ошибка при обработке элемента {h}: {item} - {i}")
+    logging.info("конец обработки списка")
+
+logging.info("начало программы")
+
+my_list = [1, 2, 3, 4, 5]
+process_list(my_list)
+logging.warning("это предупреждение")
+logging.info("конец программы")
