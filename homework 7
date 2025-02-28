@@ -1,0 +1,88 @@
+import random
+import logging
+
+logging.basicConfig(
+    filename='simulation_log.txt',  
+    level=logging.INFO,  
+    format='%(asctime)s - %(levelname)s - %(message)s'  
+)
+
+def log_event(message):
+    """Функция для записи события в лог."""
+    logging.info(message)
+
+class Job:
+    def __init__(self, name:str = "example_job", salary:float = 1):
+        self.name = name
+        self.salary = salary
+        log_event(f"Создана работа: {self.name} с зарплатой {self.salary}")
+
+
+    def set_name(self, name:str):
+        self.name = name
+        log_event(f"Работа изменена: новое название {self.name}")
+
+    def set_salary(self, salary:float):
+        self.salary = salary
+        log_event(f"Зарплата работы изменена: {self.salary}")
+
+
+class Human:
+    def __init__(self, name:str, job:Job = None, home = None, car = None, money:float = 0):
+        self.name = name
+        self.job = job
+        self.home = home
+        self.happiness = 100
+        self.satiety = 100
+        self.car = car
+        self.money = money
+        log_event(f"Создан персонаж: {self.name}, с работой {self.job.name}, деньгами: {self.money}")
+
+
+    def set_name(self, name):
+        self.name = name
+        log_event(f"Имя персонажа изменено: {self.name}")
+
+    def set_home(self, home):
+        self.home = home
+        log_event(f"Дом персонажа изменен: {self.home}")
+
+    def set_car(self, car):
+        self.car = car
+        log_event(f"Машина персонажа изменена: {self.car}")
+
+    def set_job(self, job):
+        self.job = job
+        log_event(f"Работа персонажа изменена на {self.job.name}")
+
+    def eat(self):
+        self.satiety += 10
+        log_event(f"{self.name} поел. Уровень сытости: {self.satiety}")
+
+    def work(self):
+        self.money += self.job.salary
+        log_event(f"{self.name} работает. Зарплата: {self.job.salary}. Деньги: {self.money}")
+
+
+programmer = Job("Programmer", 1500)
+it_specialist = Job("It specialist", 1000)
+deputat = Job("Dovlet qulluqcusu", 6000)
+Shamsaddin = Human("Shamsaddin", deputat, None, None, 0.25)
+
+print(f"Job:\n\tName: {programmer.name}\n\tSalary: {programmer.salary}")
+print(f"Human:\n\tName: {Shamsaddin.name}\n\tJob: {Shamsaddin.job.name} with salary {Shamsaddin.job.salary}\n\tHome: {Shamsaddin.home}\n\tCar: {Shamsaddin.car}\n\tMoney: {Shamsaddin.money}")
+
+simple_job = Job()
+print(f"Job:\n\tName: {simple_job.name}\n\tSalary: {simple_job.salary}")
+
+new_name = input("Input new job name: ")
+new_salary = float(input("Input new job salary: "))
+
+simple_job.set_salary(new_salary)
+simple_job.set_name(new_name)
+
+print(f"Job:\n\tName: {simple_job.name}\n\tSalary: {simple_job.salary}")
+
+
+Shamsaddin.work()  
+Shamsaddin.eat()  
