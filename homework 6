@@ -1,0 +1,14 @@
+def safe_calculate(func):
+    def wrapper(expression):
+        try:
+             return func(expression)
+        except ZeroDivisionError:
+            return "Ошибка: деление на ноль."
+        except SyntaxError:
+             return "Ошибка: синтаксическая ошибка в выражении."
+        except Exception as e:
+            return f"Ошибка: {str(e)}"
+    return wrapper
+@safe_calculate
+def calculate(expression):
+    return eval(expression)
