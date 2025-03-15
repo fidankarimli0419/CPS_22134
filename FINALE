@@ -1,47 +1,31 @@
 import sqlite3
 
-def create_tables():
+def create_tables(): 
 connection = sqlite3.connect('library.db')
 c = connection.cursor()
 c.execute("'CREATE TABLE IF NOT EXISTS users (
-id INTEGER PRIMARY KEY AUTOINCREMENT,
-                name TEXT,
-                last name TEXT,
-                email TEXT
+id INTEGER PRIMARY KEYS AUTOINCREMENT,
+                name TEXT, last name TEXT, email TEXT               
                 )"')
 c.execute("'CREATE TABLE IF NOT EXISTS) (
-id INTEGER PRIMARY KEY AUTOINCREMENT,
-                name of the TEXT,
-                author of the TEXT,
-                year INTEGER,
-                INTEGER instances
-                )''')
+id INTEGER PRIMARY KEYS AUTOINCREMENT,
+                name of the TEXT, author of the TEXT, year INTEGER, INTEGER instances)''')
     c.execute("'CREATE TABLE IF NOT EXISTS) (
-id INTEGER PRIMARY KEY AUTOINCREMENT,
-                user_id INTEGER,
-                book_id INTEGER,
-                release date_text,
-                return date_text,
-                FOREIGN KEY(user_id) REFERENCES users(id),
-                FOREIGN KEY(book_id) REFERENCES books(id)
-)'''
+id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER,book_id INTEGER, release date_text, return date_text,FOREIGN KEY(user_id) REFERENCES users(id),FOREIGN KEY(book_id) REFERENCES books(id))'''
     connection.commit()
     connection.close()
-
 def user registration_(first name, last name, email):
 connection = sqlite3.connect('library.db')
 c = connection.cursor()
     c.execute("INSERT INTO users (first name, last name, email) VALUES (?, ?, ?)", ( first name, last name, email))
 connection.commit()
 connection.close()
-
 def adding_books(title, author, year, copies):
     connection = sqlite3.connect('library.db')
 c = connection.cursor()
 c.execute("INSERT INTO books (title, author, year, copies) VALUES (?, ?, ?, ?)", ( title, author, year, copies))
 connection.commit()
 connection.close()
-
 def book issue(user_id, book_id, issue date, return date):
     connection = sqlite3.connect('library.db')
     c = connection.cursor()
@@ -51,12 +35,10 @@ c.execute("INSERT INTO issuance (user_id, book_id, issue date, return date) VALU
 c.execute("UPDATE books SET instances = instances - 1 WHERE id = ?", (book_id,))
 connection.commit()
 connection.close()
-
 def return_books(return_id):
     connection = sqlite3.connect('library.db')
 c = connection.cursor()
 c.execute("SELECT book_id FROM output WHERE id = ?", (output id,))
-book_id = c.fetchone()[0]
     c.execute("DELETE FROM issue WHERE id = ?", (issue id,))
 c.execute("UPDATE books SET instances = instances + 1 WHERE id =?", (book_id,))
 connection.commit()
@@ -78,12 +60,13 @@ issue = c.fetchall()
 connection.close()
 return issue
 
+#prasmotr na vidachu knig
 if __name__ == "__main__":
     create_tables()
-    user registration_("Murad", "Mirzazade", "murad.mirzazada@gmail.com ")
-adding_books ("War and Peace", "Leo Tolstoy", 1869, 3)
+    user registration_("Fidan", "Kerimli", "kerimlifidan2012@gmail.com ")
+adding_books ("Defy me", "Tehereh mafi", 2019, 47)
 print("Books after adding:", viewing_books())
-printing_books(1, 1, "2025-03-06", "2025-03-20")
+printing_books(1, 1, "2025.02.06", "2025.03.06")
 print("The history of the issue after the issue of the book:", viewing_data())
 return_books(1)
 print("Books after return:", book review())
