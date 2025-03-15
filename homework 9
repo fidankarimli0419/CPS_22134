@@ -1,0 +1,69 @@
+import sqlite3
+import requests
+from bs4 import BeautifulSoup
+from datetime import datetime
+
+def connect_to_db():
+    try:
+        conn = sqlite3.connect('weather.db')
+        return conn
+    except sqlite3.Error as e:
+        print(f"Ошибка подключения к базе данных: {e}")
+        return None
+def create_table(c):
+    c.execute('''CREATE TABLE IF NOT EXISTS weather
+                 (id INTEGER PRIMARY KEY AUTOINCREMENT,
+                  date DATE,
+                  time TIME,
+                  temperature REAL)''')
+
+
+def get_temperature(url):
+    try:
+        response = requests.get(url)
+        response.raise_for_status() 
+        soup = BeautifulSoup(response.text, 'html.parser')
+
+        temp_element = soup.find('span', class_='js_value tab-weather__value_l')
+        if temp_element:
+            temperature = float(temp_element.text)
+            return temperature
+        else:
+            print("Не удалось найти элемент с температурой на странице.")
+            return None
+    except requests.RequestException as e:
+        print(f"Ошибка при запросе к сайту: {e}")
+        return None
+    except ValueError:
+        print("Ошибка при преобразовании температуры.")
+        return None
+
+def insert_temperature(c, date, time, temperature):
+    try:
+        c.execute('INSERT INTO weather (date, time, temperature) VALUES (?, ?, ?)', (date, time, temperature))
+        print(f"Данные успешно добавлены: {date} {time} - {temperature}°C")
+    except sqlite3.Error as e:
+        print(f"Ошибка при добавлении данных в базу: {e}")
+
+def main():
+    conn = connect_to_db()
+    if conn is None:
+        return
+
+    c = conn.cursor()
+    create_table(c)
+
+    url = 'https://www.gismeteo.ru/weather-baku-5841/'
+    temperature = get_temperature(url)
+
+    if temperature is not None:
+        now = datetime.now()
+        date = now.strftime('%Y-%m-%d')
+        time = now.strftime('%H:%M:%S')
+        insert_temperature(c, date, time, temperature)
+        conn.commit()
+
+    conn.close()
+
+if __name__ == "__main__":
+    main()
