@@ -1,8 +1,8 @@
 import sqlite3
 
 def create_tables():
-conn = sqlite3.connect('library.db')
-c = conn.cursor()
+connection = sqlite3.connect('library.db')
+c = connection.cursor()
 c.execute("'CREATE TABLE IF NOT EXISTS users (
 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 name TEXT,
@@ -25,57 +25,57 @@ id INTEGER PRIMARY KEY AUTOINCREMENT,
                 FOREIGN KEY(user_id) REFERENCES users(id),
                 FOREIGN KEY(book_id) REFERENCES books(id)
 )'''
-    conn.commit()
-    conn.close()
+    connection.commit()
+    connection.close()
 
 def user registration_(first name, last name, email):
-conn = sqlite3.connect('library.db')
-c = conn.cursor()
+connection = sqlite3.connect('library.db')
+c = connection.cursor()
     c.execute("INSERT INTO users (first name, last name, email) VALUES (?, ?, ?)", ( first name, last name, email))
-conn.commit()
-conn.close()
+connection.commit()
+connection.close()
 
 def adding_books(title, author, year, copies):
-    conn = sqlite3.connect('library.db')
-c = conn.cursor()
+    connection = sqlite3.connect('library.db')
+c = connection.cursor()
 c.execute("INSERT INTO books (title, author, year, copies) VALUES (?, ?, ?, ?)", ( title, author, year, copies))
-conn.commit()
-conn.close()
+connection.commit()
+connection.close()
 
 def book issue(user_id, book_id, issue date, return date):
-    conn = sqlite3.connect('library.db')
-    c = conn.cursor()
+    connection = sqlite3.connect('library.db')
+    c = connection.cursor()
     print(f"Issuance of a book by a user with ID: {user_id}, book ID: {book_id}")
 c.execute("INSERT INTO issuance (user_id, book_id, issue date, return date) VALUES (?, ?, ?, ?)",
 ( user_id, book_id, issue date, return date))
 c.execute("UPDATE books SET instances = instances - 1 WHERE id = ?", (book_id,))
-conn.commit()
-conn.close()
+connection.commit()
+connection.close()
 
 def return_books(return_id):
-    conn = sqlite3.connect('library.db')
-c = conn.cursor()
+    connection = sqlite3.connect('library.db')
+c = connection.cursor()
 c.execute("SELECT book_id FROM output WHERE id = ?", (output id,))
 book_id = c.fetchone()[0]
     c.execute("DELETE FROM issue WHERE id = ?", (issue id,))
 c.execute("UPDATE books SET instances = instances + 1 WHERE id =?", (book_id,))
-conn.commit()
-conn.close()
+connection.commit()
+connection.close()
 
 def book view():
-conn = sqlite3.connect('library.db')
-c = conn.cursor()
+connection = sqlite3.connect('library.db')
+c = connection.cursor()
 c.execute("SELECT * FROM books")
 books = c.fetchall()
-conn.close()
+connection.close()
 return books
 
 def issue view():
-conn = sqlite3.connect('library.db')
-c = conn.cursor()
+connection = sqlite3.connect('library.db')
+c = connection.cursor()
 c.execute("SELECT * FROM issue")
 issue = c.fetchall()
-conn.close()
+connection.close()
 return issue
 
 if __name__ == "__main__":
