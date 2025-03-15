@@ -1,23 +1,23 @@
 import sqlite3
 
 def create_tables(): 
-connection = sqlite3.connect('library.db')
+  connection = sqlite3.connect('library.db')
 c = connection.cursor()
-c.execute("'CREATE TABLE IF NOT EXISTS users (
+c.execute('''CREATE TABLE IF NOT EXISTS users (
 id INTEGER PRIMARY KEYS AUTOINCREMENT,
                 name TEXT, last name TEXT, email TEXT               
-                )"')
-c.execute("'CREATE TABLE IF NOT EXISTS) (
+                )''')
+c.execute('''CREATE TABLE IF NOT EXISTS) (
 id INTEGER PRIMARY KEYS AUTOINCREMENT,
                 name of the TEXT, author of the TEXT, year INTEGER, INTEGER instances)''')
-    c.execute("'CREATE TABLE IF NOT EXISTS) (
-id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER,book_id INTEGER, release date_text, return date_text,FOREIGN KEY(user_id) REFERENCES users(id),FOREIGN KEY(book_id) REFERENCES books(id))'''
-    connection.commit()
-    connection.close()
-def user_registration_(first name, last name, email):
-connection = sqlite3.connect('library.db')
+c.execute('''CREATE TABLE IF NOT EXISTS) (
+id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER,book_id INTEGER, release date_text, return date_text,FOREIGN KEY(user_id) REFERENCES users(id),FOREIGN KEY(book_id) REFERENCES books(id))''')
+connection.commit()
+connection.close()
+def user_registration (first_name, last_name, email):
+ connection = sqlite3.connect('library.db')
 c = connection.cursor()
-    c.execute("INSERT INTO users (first name, last name, email) VALUES (?, ?, ?)", ( first name, last name, email))
+c.execute("INSERT INTO users (first name, last name, email) VALUES (?, ?, ?)", ( first_name, last_name, email))
 connection.commit()
 connection.close()
 def adding_books(title, author, year, copies):
@@ -26,48 +26,48 @@ c = connection.cursor()
 c.execute("INSERT INTO books (title, author, year, copies) VALUES (?, ?, ?, ?)", ( title, author, year, copies))
 connection.commit()
 connection.close()
-def book issue(user_id, book_id, issue date, return date):
-    connection = sqlite3.connect('library.db')
-    c = connection.cursor()
-    print(f"Issuance of a book by a user with ID: {user_id}, book ID: {book_id}")
-c.execute("INSERT INTO issuance (user_id, book_id, issue date, return date) VALUES (?, ?, ?, ?)",
-( user_id, book_id, issue date, return date))
+def book_issue(user_id, book_id, issue_date, return_date):
+   connection = sqlite3.connect('library.db')
+c = connection.cursor()
+print(f"Issuance of a book by a user with ID: {user_id}, book ID: {book_id}")
+c.execute("INSERT INTO issuance (user_id, book_id, issue date, return date) VALUES (?, ?, ?, ?)",( user_id, book_id, issue_date, return_date))
 c.execute("UPDATE books SET instances = instances - 1 WHERE id = ?", (book_id,))
 connection.commit()
 connection.close()
 def return_books(return_id):
     connection = sqlite3.connect('library.db')
 c = connection.cursor()
-c.execute("SELECT book_id FROM output WHERE id = ?", (output id,))
-    c.execute("DELETE FROM issue WHERE id = ?", (issue id,))
+c.execute("SELECT book_id FROM output WHERE id = ?",(output_id,))
+c.execute("DELETE FROM issue WHERE id = ?",(issue_id,))
 c.execute("UPDATE books SET instances = instances + 1 WHERE id =?", (book_id,))
 connection.commit()
 connection.close()
 
-def book view():
-connection = sqlite3.connect('library.db')
+def book_view():
+  connection = sqlite3.connect('library.db')
 c = connection.cursor()
 c.execute("SELECT * FROM books")
 books = c.fetchall()
 connection.close()
-return books
+return_books
 
-def issue view():
-connection = sqlite3.connect('library.db')
+def issue_view():
+  connection = sqlite3.connect('library.db')
 c = connection.cursor()
 c.execute("SELECT * FROM issue")
+issue = c.fetchall()
 connection.close()
-return issue
+return_issue
 
 #prasmotr na vidachu knig
 if __name__ == "__main__":
     create_tables()
-    user_registration_("Fidan", "Kerimli", "kerimlifidan2012@gmail.com ")
+    userregistration_("Fidan", "Kerimli", "kerimlifidan2012@gmail.com ")
 adding_books ("Defy me", "Tehereh mafi", 2019, 47)
 print("Books after adding:", viewing_books())
 printing_books(1, 1, "2025.02.06", "2025.03.06")
 print("The history of the issue after the issue of the book:", viewing_data())
 return_books(1)
-print("Books after return:", book review())
-print("Issue history after book return:", issue review())
+print("Books after return:", book_review())
+print("Issue history after book return:", issue_review())
    
