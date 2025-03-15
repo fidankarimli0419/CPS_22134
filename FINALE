@@ -14,7 +14,7 @@ id INTEGER PRIMARY KEYS AUTOINCREMENT,
 id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER,book_id INTEGER, release date_text, return date_text,FOREIGN KEY(user_id) REFERENCES users(id),FOREIGN KEY(book_id) REFERENCES books(id))'''
     connection.commit()
     connection.close()
-def user registration_(first name, last name, email):
+def user_registration_(first name, last name, email):
 connection = sqlite3.connect('library.db')
 c = connection.cursor()
     c.execute("INSERT INTO users (first name, last name, email) VALUES (?, ?, ?)", ( first name, last name, email))
@@ -62,7 +62,7 @@ return issue
 #prasmotr na vidachu knig
 if __name__ == "__main__":
     create_tables()
-    user registration_("Fidan", "Kerimli", "kerimlifidan2012@gmail.com ")
+    user_registration_("Fidan", "Kerimli", "kerimlifidan2012@gmail.com ")
 adding_books ("Defy me", "Tehereh mafi", 2019, 47)
 print("Books after adding:", viewing_books())
 printing_books(1, 1, "2025.02.06", "2025.03.06")
