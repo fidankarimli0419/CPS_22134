@@ -1,0 +1,83 @@
+import sqlite3
+
+def create_tables(conn):
+    c = conn.cursor()
+
+    c.execute('''CREATE TABLE IF NOT EXISTS users (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                first name TEXT,
+                last name TEXT,
+                email TEXT)'''')
+
+    c.execute('''CREATE TABLE IF NOT EXISTS books (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                title TEXT,
+                author TEXT,
+                year INTEGER,
+                copies INTEGER)'''')
+
+    c.execute('''CREATE TABLE IF NOT EXISTS issuance (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                user_id INTEGER,
+                book_id INTEGER,
+                issue_date TEXT,
+                return_date TEXT,
+                FOREIGN KEY(user_id) REFERENCES users(id),
+                FOREIGN KEY(book_id) REFERENCES books(id))''''))
+    conn.commit()
+
+
+def registration_user(conn, firstname, lastname, email):
+    c = conn.cursor()
+    c.execute(“INSERT INTO users (first name, last name, email) VALUES (?, ?, ?, ?)”, (first name, last name, email)))
+    conn.commit()
+
+
+def add_book(conn, title, author, year, instances):
+    c = conn.cursor()
+
+    c.execute(“INSERT INTO books (title, author, year, copies) VALUES (?, ?, ?, ?, ?, ?)”, (title, author, year, copies)))
+    conn.commit()
+
+def issue_book(conn, user_id, book_id, issue_date, return_date):
+    c = conn.cursor()
+    c.execute("INSERT INTO issue (user_id, book_id, issue_date, return_date) VALUES (?, ?, ?, ?, ?, ?)”
+              (user_id, book_id, issue_date, return_date)))
+    c.execute(“UPDATE books SET instances = instances - 1 WHERE id = ?”, (book_id,)))
+    conn.commit()
+
+def return_book(conn, issue_id):
+    c = conn.cursor()
+
+    c.execute(“DELETE FROM issue WHERE id = ?”, (issue_id,)))
+
+    c.execute(“”"”
+    UPDATE books
+    SET instances = instances + 1
+    WHERE id = (SELECT book_id FROM renditions WHERE id = ?)
+    ““”, (rendition_id,)))
+    conn.commit()
+
+
+def view_books(conn):
+    c = conn.cursor()
+
+    c.execute(“SELECT * FROM books”)
+    return c.fetchall()
+
+
+def view_issue(conn):
+    c = conn.cursor()
+    return c.fetchall()
+
+#prasmotr na vidachu knig
+if __name__ == "__main__":
+    create_tables()
+    user registration_("Fidan", "Kerimli", "kerimlifidan2012@gmail.com ")
+adding_books ("Defy me", "Tehereh mafi", 2019, 47)
+print("Books after adding:", viewing_books())
+printing_books(1, 1, "2025.02.06", "2025.03.06")
+print("The history of the issue after the issue of the book:", viewing_data())
+return_books(1)
+print("Books after return:", book review())
+print("Issue history after book return:", issue review())
