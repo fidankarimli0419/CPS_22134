@@ -56,7 +56,6 @@ def issue view():
 connection = sqlite3.connect('library.db')
 c = connection.cursor()
 c.execute("SELECT * FROM issue")
-issue = c.fetchall()
 connection.close()
 return issue
 
