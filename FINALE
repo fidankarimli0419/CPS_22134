@@ -1,0 +1,91 @@
+import sqlite3
+
+def create_tables():
+conn = sqlite3.connect('library.db')
+c = conn.cursor()
+c.execute("'CREATE TABLE IF NOT EXISTS users (
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+                name TEXT,
+                last name TEXT,
+                email TEXT
+                )"')
+c.execute("'CREATE TABLE IF NOT EXISTS) (
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+                name of the TEXT,
+                author of the TEXT,
+                year INTEGER,
+                INTEGER instances
+                )''')
+    c.execute("'CREATE TABLE IF NOT EXISTS) (
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+                user_id INTEGER,
+                book_id INTEGER,
+                release date_text,
+                return date_text,
+                FOREIGN KEY(user_id) REFERENCES users(id),
+                FOREIGN KEY(book_id) REFERENCES books(id)
+)'''
+    conn.commit()
+    conn.close()
+
+def user registration_(first name, last name, email):
+conn = sqlite3.connect('library.db')
+c = conn.cursor()
+    c.execute("INSERT INTO users (first name, last name, email) VALUES (?, ?, ?)", ( first name, last name, email))
+conn.commit()
+conn.close()
+
+def adding_books(title, author, year, copies):
+    conn = sqlite3.connect('library.db')
+c = conn.cursor()
+c.execute("INSERT INTO books (title, author, year, copies) VALUES (?, ?, ?, ?)", ( title, author, year, copies))
+conn.commit()
+conn.close()
+
+def book issue(user_id, book_id, issue date, return date):
+    conn = sqlite3.connect('library.db')
+    c = conn.cursor()
+    print(f"Issuance of a book by a user with ID: {user_id}, book ID: {book_id}")
+c.execute("INSERT INTO issuance (user_id, book_id, issue date, return date) VALUES (?, ?, ?, ?)",
+( user_id, book_id, issue date, return date))
+c.execute("UPDATE books SET instances = instances - 1 WHERE id = ?", (book_id,))
+conn.commit()
+conn.close()
+
+def return_books(return_id):
+    conn = sqlite3.connect('library.db')
+c = conn.cursor()
+c.execute("SELECT book_id FROM output WHERE id = ?", (output id,))
+book_id = c.fetchone()[0]
+    c.execute("DELETE FROM issue WHERE id = ?", (issue id,))
+c.execute("UPDATE books SET instances = instances + 1 WHERE id =?", (book_id,))
+conn.commit()
+conn.close()
+
+def book view():
+conn = sqlite3.connect('library.db')
+c = conn.cursor()
+c.execute("SELECT * FROM books")
+books = c.fetchall()
+conn.close()
+return books
+
+def issue view():
+conn = sqlite3.connect('library.db')
+c = conn.cursor()
+c.execute("SELECT * FROM issue")
+issue = c.fetchall()
+conn.close()
+return issue
+
+if __name__ == "__main__":
+    create_tables()
+    user registration_("Murad", "Mirzazade", "murad.mirzazada@gmail.com ")
+adding_books ("War and Peace", "Leo Tolstoy", 1869, 3)
+print("Books after adding:", viewing_books())
+printing_books(1, 1, "2025-03-06", "2025-03-20")
+print("The history of the issue after the issue of the book:", viewing_data())
+return_books(1)
+print("Books after return:", book review())
+print("Issue history after book return:", issue review())
+   
